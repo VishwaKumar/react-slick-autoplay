@@ -34,9 +34,7 @@ export var InnerSlider = React.createClass({
     if (this.props.init) {
       this.props.init();
     }
-    this.setState({
-      mounted: true
-    });
+    this._mounted = true;
     var lazyLoadedList = [];
     for (var i = 0; i < React.Children.count(this.props.children); i++) {
       if (i >= this.state.currentSlide && i < this.state.currentSlide + this.props.slidesToShow) {
@@ -66,6 +64,7 @@ export var InnerSlider = React.createClass({
     }
   },
   componentWillUnmount: function componentWillUnmount() {
+	this._mounted = false;
     if (this.animationEndCallback) {
       clearTimeout(this.animationEndCallback);
     }
